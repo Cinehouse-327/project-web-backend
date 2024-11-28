@@ -76,6 +76,7 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 
 
+app.use("/review", reviewRoutes);
 /**
  * @function
  * @description Global error handler for the application.
