@@ -76,7 +76,15 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 
 
+/**
+ * @function
+ * @description Route handler for review-related requests.
+ * All routes under "/review" will be handled by reviewRoutes.
+ * This includes creating reviews, fetching reviews, and other review-related actions.
+ */
 app.use("/review", reviewRoutes);
+
+
 /**
  * @function
  * @description Global error handler for the application.
