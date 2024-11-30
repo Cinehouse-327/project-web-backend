@@ -87,6 +87,14 @@ app.use("/review", reviewRoutes);
 
 /**
  * @function
+ * @description Route handler for payment-related requests.
+ * All routes under "/payment" will be handled by paymentRoute.
+ */
+app.use("/payment", paymentRoute);
+
+
+/**
+ * @function
  * @description Global error handler for the application.
  * Handles errors thrown in routes or middlewares and sends appropriate responses.
  */
