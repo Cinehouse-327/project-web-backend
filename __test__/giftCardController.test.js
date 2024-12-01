@@ -1,7 +1,7 @@
-import { giftCardController } from "../../controllers/sazzad/giftCardController.js";
-import GiftCard from "../../models/sazzad/giftCardModel.js";
+import { giftCardController } from "../controllers/akif/giftCardController.js";
+import GiftCard from "../models/akif/giftCardModel.js";
 
-jest.mock("../../models/akif/giftCardModel.js"); // Mock the GiftCard model
+jest.mock("../models/akif/giftCardModel.js"); // Mock the GiftCard model
 
 // Sample mock data
 const mockGiftCard = {
