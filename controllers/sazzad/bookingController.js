@@ -54,13 +54,13 @@ export const userBooking = async (req, res) => {
       totalPrice: totalPrice,
     });
 
-    await newBooking.save();
+    const savedBooking = await newBooking.save();
 
     res.status(201).json({
       success: true,
       message: 'Booking confirmed successfully.',
-      booking: newBooking,
-      bookingId: newBooking._id,
+      booking: savedBooking,
+      bookingId: savedBooking._id,
     });
   } catch (error) {
     console.error('Error during booking:', error);
