@@ -86,6 +86,23 @@ app.use("/search", searchRoutes);
 
 /**
  * @function
+ * @description Route handler for review-related requests.
+ * All routes under "/review" will be handled by reviewRoutes.
+ * This includes creating reviews, fetching reviews, and other review-related actions.
+ */
+app.use("/review", reviewRoutes);
+
+
+/**
+ * @function
+ * @description Route handler for payment-related requests.
+ * All routes under "/payment" will be handled by paymentRoute.
+ */
+app.use("/payment", paymentRoute);
+
+
+/**
+ * @function
  * @description Global error handler for the application.
  * Handles errors thrown in routes or middlewares and sends appropriate responses.
  */
