@@ -1,38 +1,33 @@
-import GiftCard from "../../models/akif/giftCardModel.js";
+import GiftCard from "../models/giftCardModel.js";
 
-// Controller to handle gift card-related actions
+/**
+ * Controller to handle operations related to gift cards.
+ * @namespace giftCardController
+ */
 export const giftCardController = {
-  
   /**
-   * @route POST /add
-   * @description Adds a new gift card.
-   * @param {Object} req - The request object containing gift card data in the body.
-   * @param {Object} res - The response object to send status or result back to the client.
-   * @returns {Object} Response containing the status and the newly created gift card.
+   * Adds a new gift card to the database.
+   * 
+   * @function addGiftCard
+   * @memberof giftCardController
+   * @param {Object} req - The request object.
+   * @param {Object} req.body - The body containing gift card details.
+   * @param {string} req.body.code - Unique code for the gift card.
+   * @param {number} req.body.balance - Initial balance for the gift card.
+   * @param {string} req.body.expirationDate - Expiration date of the gift card.
+   * @param {Object} res - The response object.
+   * @returns {Object} JSON response with a success message and the saved gift card.
    */
   addGiftCard: async (req, res) => {
-    const { code, value, expiration_date } = req.body;
-
     try {
-      // Create a new gift card document using the data provided in the request body
-      const newGiftCard = new GiftCard({
-        code,
-        value,
-        expiration_date,
-        status: "active", // New gift cards are active by default
-      });
-
-      // Save the new gift card to the database
-      const savedGiftCard = await newGiftCard.save();
-
-      // Respond with success and the saved gift card
+      const { code, balance, expirationDate } = req.body;
+      const giftCard = new GiftCard({ code, balance, expirationDate });
+      const savedGiftCard = await giftCard.save();
       res.status(201).json({
         message: "Gift card added successfully",
         giftCard: savedGiftCard,
       });
     } catch (error) {
-      console.error("Error while adding gift card:", error);
-      // Respond with an error message if something goes wrong
       res.status(500).json({
         message: "Error adding gift card",
         error: error.message,
@@ -41,60 +36,21 @@ export const giftCardController = {
   },
 
   /**
-   * @route GET /getgiftcards
-   * @description Retrieves all gift cards.
-   * @param {Object} req - The request object containing the query parameters (optional).
-   * @param {Object} res - The response object that will contain the list of gift cards.
-   * @returns {Array} An array of gift cards from the database.
+   * Retrieves all gift cards from the database.
+   * 
+   * @function getGiftCards
+   * @memberof giftCardController
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @returns {Array} JSON response containing a list of all gift cards.
    */
   getGiftCards: async (req, res) => {
     try {
-      // Fetch all gift cards from the database
       const giftCards = await GiftCard.find();
-
-      // Respond with the list of gift cards
-      res.status(200).json({ giftCards });
+      res.status(200).json(giftCards);
     } catch (error) {
-      console.error("Error fetching gift cards:", error);
-      // Respond with an error message if something goes wrong
       res.status(500).json({
         message: "Error fetching gift cards",
-        error: error.message,
-      });
-    }
-  },
-
-  /**
-   * @route PUT /use/:code
-   * @description Marks a gift card as used.
-   * @param {Object} req - The request object containing the code parameter in the URL.
-   * @param {Object} res - The response object that will return the updated gift card.
-   * @returns {Object} The updated gift card with the "used" status.
-   */
-  useGiftCard: async (req, res) => {
-    const { code } = req.params;
-
-    try {
-      // Find the gift card by code and update its status to "used"
-      const updatedGiftCard = await GiftCard.findOneAndUpdate(
-        { code, status: "active" }, // Only mark as used if it's active
-        { status: "used" },
-        { new: true }
-      );
-
-      if (!updatedGiftCard) {
-        return res.status(404).json({ message: "Gift card not found or already used." });
-      }
-
-      // Respond with the updated gift card
-      res.status(200).json({
-        message: "Gift card marked as used",
-        giftCard: updatedGiftCard,
-      });
-    } catch (error) {
-      console.error("Error using gift card:", error);
-      res.status(500).json({
-        message: "Error using gift card",
         error: error.message,
       });
     }
