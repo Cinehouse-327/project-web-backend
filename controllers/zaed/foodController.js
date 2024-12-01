@@ -14,39 +14,30 @@ export const foodController = {
   getAllFoods: async (req, res) => {
     try {
       const foods = await FoodItem.find();
-      res.status(200).json({ success: true, data: foods });
+      res.status(200).json({ foods });
     } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+      res.status(500).json({ message: error.message });
     }
   },
 
   /**
-   * Places a new food order.
+   * Places an order for food.
    * 
    * @async
    * @function addOrder
-   * @param {Object} req - The request object containing the order details.
-   * @param {Object} req.body - The body of the request containing userId, food_id, and totalprice.
-   * @param {string} req.body.userId - The ID of the user placing the order.
-   * @param {string} req.body.food_id - The ID of the food item being ordered.
-   * @param {string} req.body.totalprice - The total price of the order.
-   * @param {Object} res - The response object to send confirmation or error message.
-   * @returns {Object} - A response object with order confirmation or an error message.
+   * @param {Object} req - The request object containing order details.
+   * @param {Object} res - The response object confirming the order or an error message.
+   * @returns {Object} - A response object with order confirmation or error message.
    */
   addOrder: async (req, res) => {
+    const { userId, food_id, totalprice } = req.body;
+
     try {
-      const { userId, food_id, totalprice } = req.body;
-
-      if (!userId || !food_id || !totalprice) {
-        return res.status(400).json({ success: false, message: 'All fields are required.' });
-      }
-
-      const order = new OrderFood({ userId, food_id, totalprice });
-      await order.save();
-
-      res.status(201).json({ success: true, message: 'Order placed successfully.', data: order });
+      const newOrder = new OrderFood({ userId, food_id, totalprice });
+      await newOrder.save();
+      res.status(201).json({ message: "Order placed successfully" });
     } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+      res.status(500).json({ message: error.message });
     }
   },
 };
