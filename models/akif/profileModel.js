@@ -46,7 +46,8 @@ const profileSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Adds `createdAt` and `updatedAt` fields
+    timestamps: true, 
+    collection: 'users',// Adds `createdAt` and `updatedAt` fields
   }
 );
 
