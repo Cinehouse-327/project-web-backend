@@ -1,5 +1,5 @@
 import express from "express";
-import { giftCardController } from "../controllers/giftCardController.js";
+import { giftCardController } from "../../controllers/akif/giftCardController.js";
 
 /**
  * Router for gift card-related operations.
