@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { Booking } from '../../models/sazzad/bookingModel.js';
-import { User } from '../../models/userModel.js';
+import { User } from '../../models/sazzad/userModel.js';
 import { MovieList } from '../../models/sazzad/movieListModel.js';
 
 /**
@@ -24,6 +24,12 @@ export const userBooking = async (req, res) => {
     const { userId, movieId, showTime, date, seats, totalPrice } = req.body;
 
     console.log('Booking request data:', req.body);
+    console.log('User Id:', userId);
+    console.log('MovieID Id:', movieId);
+    console.log('Show Time:', showTime);
+    console.log('total price', totalPrice);
+
+
 
     if (!userId || !movieId || !showTime || !date || totalPrice === undefined) {
       return res.status(400).json({ message: 'Missing required fields' });
@@ -40,21 +46,21 @@ export const userBooking = async (req, res) => {
     }
 
     const newBooking = new Booking({
-      user_id: userId,
-      movie_id: movieId,
-      show_time: showTime,
-      show_date: date,
+      userId: userId,
+      movieId: movieId,
+      showTime: showTime,
+      showDate: date,
       seats: seats || {},
-      total_price: totalPrice,
+      totalPrice: totalPrice,
     });
 
-    await newBooking.save();
+    const savedBooking = await newBooking.save();
 
     res.status(201).json({
       success: true,
       message: 'Booking confirmed successfully.',
-      booking: newBooking,
-      bookingId: newBooking._id,
+      booking: savedBooking,
+      bookingId: savedBooking._id,
     });
   } catch (error) {
     console.error('Error during booking:', error);
