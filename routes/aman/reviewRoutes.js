@@ -24,5 +24,15 @@ router.post('/add', reviewController.addReview);
  */
 router.get('/getreviews', reviewController.getReviews);
 
+/**
+ * @route DELETE /delete/:id
+ * @description Deletes a review by its ID.
+ * @access Public
+ * @param {Object} req - The request object, containing the review ID in the URL parameter.
+ * @param {Object} res - The response object to send the status or result.
+ * @returns {Object} Response with status and message indicating success or failure.
+ */
+router.delete('/delete/:id', reviewController.deleteReview);
+
 // Export the router to be used in the main app
 export default router;
