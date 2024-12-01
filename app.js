@@ -5,6 +5,7 @@ import cors from "cors";
 import { errorMiddlewares } from "./middlewares/error.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/sazzad/userRoute.js"
+import searchRoutes from "./routes/sazzad/searchRoute.js"
 
 
 /**
@@ -74,6 +75,13 @@ app.use("/auth", authRoutes);
  * All routes under "/user" will be handled by userRoutes.
  */
 app.use("/user", userRoutes);
+
+/**
+ * @function
+ * @description Route handler for movie-related search requests.
+ * All routes under "/search" will be handled by movieRoute.
+ */
+app.use("/search", searchRoutes);
 
 
 /**
