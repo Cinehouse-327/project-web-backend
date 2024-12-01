@@ -1,0 +1,11 @@
+{
+    "source": {
+      "include": ["controllers", "models", "routes"],
+      "includePattern": ".js$"
+    },
+    "opts": {
+      "destination": "./docs",
+      "recurse": true
+    }
+  }
+  
