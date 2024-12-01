@@ -4,8 +4,9 @@ import express from "express";
 import cors from "cors";
 import { errorMiddlewares } from "./middlewares/error.js";
 import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/sazzad/userRoute.js";
-import giftCardRoutes from "./routes/giftCardRoutes.js"; // Import GiftCard routes
+import bookingRoutes from "./routes/sazzad/bookingRoute.js"
+import searchRoutes from "./routes/sazzad/searchRoute.js"
+
 
 /**
  * @constant
@@ -13,6 +14,7 @@ import giftCardRoutes from "./routes/giftCardRoutes.js"; // Import GiftCard rout
  * @description This is the main Express application instance.
  */
 export const app = express();
+
 
 /**
  * @function
@@ -22,11 +24,13 @@ config({
   path: "./config.env",
 });
 
+
 /**
  * @function
  * @description Middleware to parse incoming JSON requests.
  */
 app.use(express.json());
+
 
 /**
  * @function
@@ -41,11 +45,21 @@ app.use(
   })
 );
 
+
 /**
  * @function
  * @description Middleware to parse cookies attached to the incoming request.
  */
 app.use(cookieParser());
+
+
+/**
+ * @function
+ * @description Route handler for movie list related requests.
+ * All routes under "/movielist" will be handled by movieListRoute.
+ */
+// app.use("/movielist", movieListRoute);
+
 
 /**
  * @function
@@ -54,27 +68,21 @@ app.use(cookieParser());
  */
 app.use("/auth", authRoutes);
 
+
 /**
  * @function
  * @description Route handler for user-related requests.
  * All routes under "/user" will be handled by userRoutes.
  */
-app.use("/user", userRoutes);
+app.use("/user", bookingRoutes);
 
 /**
  * @function
- * @description Route handler for gift card related requests.
- * All routes under "/giftcard" will be handled by giftCardRoutes.
+ * @description Route handler for movie-related search requests.
+ * All routes under "/search" will be handled by movieRoute.
  */
-app.use("/giftcard", giftCardRoutes); // Add GiftCard route
+app.use("/search", searchRoutes);
 
-/**
- * @function
- * @description Route handler for review-related requests.
- * All routes under "/review" will be handled by reviewRoutes.
- * This includes creating reviews, fetching reviews, and other review-related actions.
- */
-app.use("/review", reviewRoutes);
 
 /**
  * @function
