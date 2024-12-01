@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import { errorMiddlewares } from "./middlewares/error.js";
 import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/sazzad/userRoute.js"
+import bookingRoutes from "./routes/sazzad/bookingRoute.js"
 import searchRoutes from "./routes/sazzad/searchRoute.js"
 
 
@@ -74,7 +74,7 @@ app.use("/auth", authRoutes);
  * @description Route handler for user-related requests.
  * All routes under "/user" will be handled by userRoutes.
  */
-app.use("/user", userRoutes);
+app.use("/user", bookingRoutes);
 
 /**
  * @function
