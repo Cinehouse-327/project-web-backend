@@ -7,7 +7,7 @@ logs/
 
 # Environment files
 # .env
-# config.env
+config.env
 
 # npm package lock file (useful if you don't want to commit it)
 package-lock.json

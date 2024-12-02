@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/amit/helpSupportController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/amit/helpSupportController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import mongoose from 'mongoose';
+import { HelpSupport } from '../../models/amit/helpSupportModel.js';
+import { User } from '../../models/userModel.js';
+
+
+/**
+ * Controller for handling helpSupport-related actions.
+ * 
+ * @module helpSupportController
+ */
+/**
+ * Handles the creation of a new help &amp; support query.
+ * 
+ * @async
+ * @function createSupportQuery
+ * @param {Object} req - The request object containing query data.
+ * @param {Object} req.body - The body of the request containing query information.
+ * @param {string} req.body.userId - The ID of the user raising the query.
+ * @param {string} req.body.question - The user's question or issue.
+ * @param {Object} res - The response object to send back the result.
+ * @returns {Object} - A response object with the query confirmation or an error message.
+ */
+export const createSupportQuery = async (req, res) => {
+  try {
+    const { userId, question } = req.body;
+
+    console.log('New support query request:', req.body);
+
+    if (!userId || !question) {
+      return res.status(400).json({ message: 'User ID and question are required.' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    const newQuery = new HelpSupport({ userId, question });
+    await newQuery.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Query submitted successfully.',
+      query: newQuery,
+    });
+  } catch (error) {
+    console.error('Error during query creation:', error);
+    res.status(500).json({ message: 'Server error.', error: error.message });
+  }
+};
+
+/**
+ * Retrieves all queries submitted by a specific user.
+ * 
+ * @async
+ * @function getUserQueries
+ * @param {Object} req - The request object containing the user's ID.
+ * @param {Object} req.params - The parameters containing the user ID.
+ * @param {string} req.params.userId - The ID of the user whose queries are being retrieved.
+ * @param {Object} res - The response object to send back the result.
+ * @returns {Object} - A response object with the list of queries or an error message.
+ */
+export const getUserQueries = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    console.log('Fetching queries for user:', userId);
+
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID is required.' });
+    }
+
+    const queries = await HelpSupport.find({ userId });
+    res.status(200).json({
+      success: true,
+      queries,
+    });
+  } catch (error) {
+    console.error('Error fetching user queries:', error);
+    res.status(500).json({ message: 'Server error.', error: error.message });
+  }
+};
+
+
+/**
+ * Deletes a specific query.
+ * 
+ * @async
+ * @function deleteQuery
+ * @param {Object} req - The request object containing the query ID.
+ * @param {Object} req.params - The parameters containing the query ID.
+ * @param {string} req.params.queryId - The ID of the query to delete.
+ * @param {Object} res - The response object to send back the result.
+ * @returns {Object} - A response object with the deletion confirmation or an error message.
+ */
+export const deleteQuery = async (req, res) => {
+  try {
+    const { queryId } = req.params;
+
+    console.log('Deleting query with ID:', queryId);
+
+    if (!queryId) {
+      return res.status(400).json({ message: 'Query ID is required.' });
+    }
+
+    const deletedQuery = await HelpSupport.findByIdAndDelete(queryId);
+
+    if (!deletedQuery) {
+      return res.status(404).json({ message: 'Query not found.' });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Query deleted successfully.',
+    });
+  } catch (error) {
+    console.error('Error deleting query:', error);
+    res.status(500).json({ message: 'Server error.', error: error.message });
+  }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-bookingController.html">bookingController</a></li><li><a href="module-foodController.html">foodController</a></li><li><a href="module-giftCardController.html">giftCardController</a></li><li><a href="module-helpSupportController.html">helpSupportController</a></li><li><a href="module-movieListController.html">movieListController</a></li><li><a href="module-paymentController.html">paymentController</a></li><li><a href="module-profileController.html">profileController</a></li><li><a href="module-reviewController.html">reviewController</a></li><li><a href="module-searchController.html">searchController</a></li><li><a href="module-watchlistController.html">watchlistController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MovieList">MovieList</a></li><li><a href="global.html#Payment">Payment</a></li><li><a href="global.html#bookingSchema">bookingSchema</a></li><li><a href="global.html#booking_id">booking_id</a></li><li><a href="global.html#category">category</a></li><li><a href="global.html#createdAt">createdAt</a></li><li><a href="global.html#foodItemSchema">foodItemSchema</a></li><li><a href="global.html#food_id">food_id</a></li><li><a href="global.html#helpSupportSchema">helpSupportSchema</a></li><li><a href="global.html#imageLink">imageLink</a></li><li><a href="global.html#movie">movie</a></li><li><a href="global.html#movieId">movieId</a></li><li><a href="global.html#movieSchema">movieSchema</a></li><li><a href="global.html#movie_id">movie_id</a></li><li><a href="global.html#name">name</a></li><li><a href="global.html#orderFoodSchema">orderFoodSchema</a></li><li><a href="global.html#paymentSchema">paymentSchema</a></li><li><a href="global.html#payment_method">payment_method</a></li><li><a href="global.html#payment_status">payment_status</a></li><li><a href="global.html#profileSchema">profileSchema</a></li><li><a href="global.html#question">question</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#response">response</a></li><li><a href="global.html#review">review</a></li><li><a href="global.html#reviewSchema">reviewSchema</a></li><li><a href="global.html#seats">seats</a></li><li><a href="global.html#showDate">showDate</a></li><li><a href="global.html#showTime">showTime</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#supportId">supportId</a></li><li><a href="global.html#title">title</a></li><li><a href="global.html#totalPrice">totalPrice</a></li><li><a href="global.html#totalprice">totalprice</a></li><li><a href="global.html#type">type</a></li><li><a href="global.html#updatedAt">updatedAt</a></li><li><a href="global.html#userId">userId</a></li><li><a href="global.html#user_id">user_id</a></li><li><a href="global.html#watchlistSchema">watchlistSchema</a></li><li><a href="global.html#year">year</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Dec 02 2024 11:27:41 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

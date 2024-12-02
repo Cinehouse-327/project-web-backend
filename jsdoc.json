@@ -1,0 +1,15 @@
+{
+  "source": {
+    "include": ["controllers/sazzad","controllers/aman","controllers/akif","controllers/amit","controllers/zaed", "models/sazzad","models/aman","models/akif","models/amit","models/zaed", "routes/sazzad","routes/aman","routes/akif","routes/amit","routes/zaed"],  
+    "includePattern": ".js$",  
+    "excludePattern": "(node_modules/|docs)"  
+  },
+  "plugins": ["plugins/markdown"],  
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  },
+  "opts": {
+    
+  }
+}

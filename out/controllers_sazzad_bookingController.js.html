@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/sazzad/bookingController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/sazzad/bookingController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import mongoose from 'mongoose';
+import { Booking } from '../../models/sazzad/bookingModel.js';
+import { User } from '../../models/userModel.js';
+import { MovieList } from '../../models/amit/movieListModel.js';
+
+
+
+/**
+ * Controller for handling booking-related actions.
+ * 
+ * @module bookingController
+ */
+/**
+ * Handles user booking for a movie.
+ * 
+ * @async
+ * @function userBooking
+ * @param {Object} req - The request object containing the booking data.
+ * @param {Object} req.body - The body of the request containing booking information.
+ * @param {string} req.body.userId - The ID of the user making the booking.
+ * @param {string} req.body.movieId - The ID of the movie being booked.
+ * @param {string} req.body.showTime - The time of the movie show.
+ * @param {string} req.body.date - The date of the movie show.
+ * @param {Object} req.body.seats - An object representing selected seats (optional).
+ * @param {number} req.body.totalPrice - The total price of the booking.
+ * @param {Object} res - The response object to send back the result.
+ * @returns {Object} - A response object with booking confirmation or error message.
+ */
+export const userBooking = async (req, res) => {
+  try {
+    const { userId, movieId, showTime, date, seats, totalPrice } = req.body;
+
+    console.log('Booking request data:', req.body);
+    console.log('User Id:', userId);
+    console.log('MovieID Id:', movieId);
+    console.log('Show Time:', showTime);
+    console.log('total price', totalPrice);
+
+
+
+    if (!userId || !movieId || !showTime || !date || totalPrice === undefined) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    const movie = await MovieList.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ message: 'Movie not found.' });
+    }
+
+    const newBooking = new Booking({
+      userId: userId,
+      movieId: movieId,
+      showTime: showTime,
+      showDate: date,
+      seats: seats || {},
+      totalPrice: totalPrice,
+    });
+
+    const savedBooking = await newBooking.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Booking confirmed successfully.',
+      booking: savedBooking,
+      bookingId: savedBooking._id,
+    });
+  } catch (error) {
+    console.error('Error during booking:', error);
+    res.status(500).json({ message: 'Server error.', error: error.message });
+  }
+};
+
+/**
+ * Retrieves the seat availability for a specific movie show.
+ * 
+ * @async
+ * @function getSeatAvailability
+ * @param {Object} req - The request object containing the query data.
+ * @param {Object} req.query - The query parameters containing movie ID, date, and show time.
+ * @param {string} req.query.movieId - The ID of the movie.
+ * @param {string} req.query.date - The date of the movie show.
+ * @param {string} req.query.time - The time of the movie show.
+ * @param {Object} res - The response object to send back the availability status.
+ * @returns {Object} - A response object with seat availability status.
+ */
+export const getSeatAvailability = async (req, res) => {
+  try {
+    const { movieId, date, time } = req.query;
+
+    if (!movieId || !date || !time) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    const bookings = await Booking.find({
+      movie_id: movieId,
+      show_date: date,
+      show_time: time,
+    });
+
+    let bookedSeats = [];
+
+    bookings.forEach((booking) => {
+      if (booking.seats) {
+        bookedSeats.push(...booking.seats);
+      }
+    });
+
+    const seatsStatus = Array.from({ length: 30 }, (_, i) => 
+      bookedSeats.includes(i) ? 'booked' : 'available'
+    );
+
+    res.status(200).json({ seats: seatsStatus });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error.', error: error.message });
+  }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-bookingController.html">bookingController</a></li><li><a href="module-foodController.html">foodController</a></li><li><a href="module-giftCardController.html">giftCardController</a></li><li><a href="module-helpSupportController.html">helpSupportController</a></li><li><a href="module-movieListController.html">movieListController</a></li><li><a href="module-paymentController.html">paymentController</a></li><li><a href="module-profileController.html">profileController</a></li><li><a href="module-reviewController.html">reviewController</a></li><li><a href="module-searchController.html">searchController</a></li><li><a href="module-watchlistController.html">watchlistController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MovieList">MovieList</a></li><li><a href="global.html#Payment">Payment</a></li><li><a href="global.html#bookingSchema">bookingSchema</a></li><li><a href="global.html#booking_id">booking_id</a></li><li><a href="global.html#category">category</a></li><li><a href="global.html#createdAt">createdAt</a></li><li><a href="global.html#foodItemSchema">foodItemSchema</a></li><li><a href="global.html#food_id">food_id</a></li><li><a href="global.html#helpSupportSchema">helpSupportSchema</a></li><li><a href="global.html#imageLink">imageLink</a></li><li><a href="global.html#movie">movie</a></li><li><a href="global.html#movieId">movieId</a></li><li><a href="global.html#movieSchema">movieSchema</a></li><li><a href="global.html#movie_id">movie_id</a></li><li><a href="global.html#name">name</a></li><li><a href="global.html#orderFoodSchema">orderFoodSchema</a></li><li><a href="global.html#paymentSchema">paymentSchema</a></li><li><a href="global.html#payment_method">payment_method</a></li><li><a href="global.html#payment_status">payment_status</a></li><li><a href="global.html#profileSchema">profileSchema</a></li><li><a href="global.html#question">question</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#response">response</a></li><li><a href="global.html#review">review</a></li><li><a href="global.html#reviewSchema">reviewSchema</a></li><li><a href="global.html#seats">seats</a></li><li><a href="global.html#showDate">showDate</a></li><li><a href="global.html#showTime">showTime</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#supportId">supportId</a></li><li><a href="global.html#title">title</a></li><li><a href="global.html#totalPrice">totalPrice</a></li><li><a href="global.html#totalprice">totalprice</a></li><li><a href="global.html#type">type</a></li><li><a href="global.html#updatedAt">updatedAt</a></li><li><a href="global.html#userId">userId</a></li><li><a href="global.html#user_id">user_id</a></li><li><a href="global.html#watchlistSchema">watchlistSchema</a></li><li><a href="global.html#year">year</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Dec 02 2024 11:27:41 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
