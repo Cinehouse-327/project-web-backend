@@ -1,6 +1,11 @@
 import Profile from "../../models/akif/profileModel.js";
 
 /**
+ * Controller for handling profile-related actions.
+ * 
+ * @module profileController
+ */
+/**
  * Get the profile details.
  */
 export const getProfile = async (req, res) => {

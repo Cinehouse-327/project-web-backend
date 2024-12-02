@@ -2,6 +2,12 @@ import mongoose from 'mongoose';
 import { HelpSupport } from '../../models/amit/helpSupportModel.js';
 import { User } from '../../models/userModel.js';
 
+
+/**
+ * Controller for handling helpSupport-related actions.
+ * 
+ * @module helpSupportController
+ */
 /**
  * Handles the creation of a new help & support query.
  * 

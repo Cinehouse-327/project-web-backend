@@ -1,6 +1,14 @@
 import { FoodItem } from '../../models/zaed/foodItemModel.js';
 import { OrderFood } from '../../models/zaed/orderFoodModel.js';
 
+
+
+
+/**
+ * Controller for handling order-related actions.
+ * 
+ * @module foodController
+ */
 export const foodController = {
   /**
    * Fetches all available food items.
