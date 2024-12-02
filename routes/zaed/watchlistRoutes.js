@@ -1,5 +1,5 @@
 import express from "express";
-import { watchlistController } from "../controllers/zaed/watchlistController.js";
+import { watchlistController } from "../../controllers/zaed/watchlistController.js";
 
 const router = express.Router();
 

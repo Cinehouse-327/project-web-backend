@@ -1,5 +1,5 @@
 import express from "express";
-import { reviewController } from "../controllers/aman/reviewController.js";
+import { reviewController } from "../../controllers/aman/reviewController.js";
 
 // Initialize the router for review-related routes
 const router = express.Router();

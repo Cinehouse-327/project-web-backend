@@ -1,7 +1,7 @@
 import express from 'express';
 import { 
   createSupportQuery, 
-  updateQueryResponse, 
+  getUserQueries, 
   deleteQuery 
 } from '../../controllers/amit/helpSupportController.js';
 
@@ -29,7 +29,7 @@ router.post('/help-support', createSupportQuery);
  * @returns {Object} 404 - Error message if query not found.
  * @returns {Object} 500 - Server error message.
  */
-router.patch('/help-support', updateQueryResponse);
+router.patch('/help-support', getUserQueries);
 
 /**
  * @route DELETE /help-support/:queryId

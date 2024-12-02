@@ -1,5 +1,5 @@
 import express from 'express';
-import { getMovies } from '../controllers/sazzad/searchController.js';
+import { getMovies } from '../../controllers/sazzad/searchController.js';
 
 const router = express.Router();
 

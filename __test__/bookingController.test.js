@@ -1,12 +1,12 @@
 import { userBooking, getSeatAvailability } from '../controllers/sazzad/bookingController.js';
 import { Booking } from '../models/sazzad/bookingModel.js';
-import { User } from '../models/sazzad/userModel.js';
-import { MovieList } from '../models/sazzad/movieListModel.js';
+import { User } from '../models/userModel.js';
+import { MovieList } from '../models/amit/movieListModel.js';
 
 
 jest.mock('../models/sazzad/bookingModel.js');
-jest.mock('../models/sazzad/userModel.js');
-jest.mock('../models/sazzad/movieListModel.js');
+jest.mock('../models/userModel.js');
+jest.mock('../models/amit/movieListModel.js');
 
 /**
  * Test suite for the Booking Controller functions.

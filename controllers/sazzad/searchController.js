@@ -1,4 +1,4 @@
-import { MovieList } from '../../models/sazzad/movieListModel.js';
+import { MovieList } from '../../models/amit/movieListModel.js';
 
 /**
  * Controller to get the list of all movies from the database.
