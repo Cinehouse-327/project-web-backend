@@ -1,8 +1,8 @@
-import { reviewController } from '../../controllers/aman/reviewController.js';
-import Review from '../../models/aman/reviewModel.js';
+import { reviewController } from '../controllers/aman/reviewController.js';
+import Review from '../models/aman/reviewModel.js';
 
 // Mock Mongoose model for testing
-jest.mock('../../models/aman/reviewModel.js');
+jest.mock('../models/aman/reviewModel.js');
 
 /**
  * Suite of tests for the `reviewController` functions.

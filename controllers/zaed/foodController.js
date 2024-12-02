@@ -13,9 +13,11 @@ export const foodController = {
    */
   getAllFoods: async (req, res) => {
     try {
+      console.log('Fetching all food items');
       const foods = await FoodItem.find();
       res.status(200).json({ foods });
     } catch (error) {
+      console.error('Error fetching foods:', error);
       res.status(500).json({ message: error.message });
     }
   },
@@ -32,11 +34,17 @@ export const foodController = {
   addOrder: async (req, res) => {
     const { userId, food_id, totalprice } = req.body;
 
+    // Input validation
+    if (!userId || !food_id || !totalprice) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
     try {
       const newOrder = new OrderFood({ userId, food_id, totalprice });
       await newOrder.save();
-      res.status(201).json({ message: "Order placed successfully" });
+      res.status(201).json({ message: 'Order placed successfully', order: newOrder });
     } catch (error) {
+      console.error('Error placing order:', error);
       res.status(500).json({ message: error.message });
     }
   },

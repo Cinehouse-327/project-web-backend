@@ -1,10 +1,10 @@
-import { createSupportQuery, getUserQueries, deleteQuery } from '../../controllers/helpSupportController.js';
-import { HelpSupport } from '../../models/helpSupportModel.js';
-import { User } from '../../models/userModel.js';
+import { createSupportQuery, getUserQueries, deleteQuery } from '../controllers/amit/helpSupportController.js';
+import { HelpSupport } from '../models/amit/helpSupportModel.js';
+import { User } from '../models/userModel.js';
 import mongoose from 'mongoose';
 
-jest.mock('../../models/helpSupportModel.js');
-jest.mock('../../models/userModel.js');
+jest.mock('../models/amit/helpSupportModel.js');
+jest.mock('../models/userModel.js');
 
 describe('Help & Support Controller', () => {
   let mockReq, mockRes;

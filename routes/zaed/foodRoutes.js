@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllFoods, addOrder } from '../controllers/zaed/foodController.js';
+import { foodController } from '../../controllers/zaed/foodController.js';
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ const router = express.Router();
  * @returns {Object} 200 - A list of food items.
  * @returns {Object} 404 - Error message if no food items are available.
  */
-router.get('/foods', getAllFoods);
+router.get('/foods', foodController.getAllFoods);
 
 /**
  * @route POST /order
@@ -21,6 +21,6 @@ router.get('/foods', getAllFoods);
  * @returns {Object} 200 - A success message with the order details.
  * @returns {Object} 400 - Error message if the order cannot be processed.
  */
-router.post('/order', addOrder);
+router.post('/order', foodController.addOrder);
 
 export default router;

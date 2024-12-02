@@ -1,5 +1,5 @@
 import express from "express";
-import { createPayment } from "../controllers/aman/paymentController.js";
+import { paymentController } from '../../controllers/aman/paymentController.js';
 
 const router = express.Router();
 
@@ -24,6 +24,6 @@ const router = express.Router();
  * @param {Object} res - The response object to send the response back to the client.
  * @returns {void} Sends a JSON response with the status of the payment creation.
  */
-router.post("/payments", createPayment);
+router.post("/payments", paymentController.createPayment);
 
 export default router;

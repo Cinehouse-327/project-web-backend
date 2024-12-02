@@ -1,8 +1,8 @@
-import { watchlistController } from '../../controllers/zaed/watchlistController.js';
-import { Watchlist } from '../../models/zaed/watchlistModel.js';
+import { watchlistController } from '../controllers/zaed/watchlistController.js';
+import { Watchlist } from '../models/zaed/watchlistModel.js';
 
 // Mock Mongoose model
-jest.mock('../../models/zaed/watchlistModel.js');
+jest.mock('../models/zaed/watchlistModel.js');
 
 describe('Watchlist Controller Tests', () => {
   afterEach(() => {

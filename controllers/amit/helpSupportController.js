@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { HelpSupport } from '../../models/helpSupportModel.js';
+import { HelpSupport } from '../../models/amit/helpSupportModel.js';
 import { User } from '../../models/userModel.js';
 
 /**

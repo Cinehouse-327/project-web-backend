@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Booking } from '../../models/sazzad/bookingModel.js';
-import { User } from '../../models/sazzad/userModel.js';
-import { MovieList } from '../../models/sazzad/movieListModel.js';
+import { User } from '../../models/userModel.js';
+import { MovieList } from '../../models/amit/movieListModel.js';
 
 /**
  * Handles user booking for a movie.

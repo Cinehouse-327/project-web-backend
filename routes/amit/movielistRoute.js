@@ -1,5 +1,5 @@
 import express from 'express';
-import { movieListController } from '../controllers/amit/movieListController.js';
+import { movieListController } from '../../controllers/amit/movieListController.js';
 
 const router = express.Router();
 

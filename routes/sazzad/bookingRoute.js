@@ -1,5 +1,5 @@
 import express from 'express';
-import { userBooking, getSeatAvailability } from '../controllers/sazzad/bookingController.js';
+import { userBooking, getSeatAvailability } from '../../controllers/sazzad/bookingController.js';
 
 const router = express.Router();
 
