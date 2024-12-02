@@ -1,7 +1,7 @@
 import { movieListController } from "../controllers/amit/movieListController.js";
 import { MovieList } from "../models/amit/movieListModel.js";
 
-// Mock the MovieList model
+
 jest.mock("../models/amit/movieListModel");
 
 describe("movieListController", () => {
@@ -15,7 +15,7 @@ describe("movieListController", () => {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
-      jest.clearAllMocks(); // Clear previous mocks
+      jest.clearAllMocks(); 
     });
 
     it("should return all movies with status 200", async () => {
