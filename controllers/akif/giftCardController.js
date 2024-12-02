@@ -1,8 +1,9 @@
 import GiftCard from "../../models/akif/giftCardModel.js";
 
 /**
- * Controller to handle operations related to gift cards.
- * @namespace giftCardController
+ * Controller for handling giftcard-related actions.
+ * 
+ * @module giftCardController
  */
 export const giftCardController = {
   /**

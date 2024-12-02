@@ -1,5 +1,11 @@
 import { MovieList } from '../../models/amit/movieListModel.js';
 
+
+/**
+ * Controller for handling search-related actions.
+ * 
+ * @module searchController
+ */
 /**
  * Controller to get the list of all movies from the database.
  * 

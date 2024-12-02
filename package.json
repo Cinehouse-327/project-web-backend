@@ -7,6 +7,7 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
+    "doc": "jsdoc -c jsdoc.json",
     "start": "node server.js"
   },
   "author": "",
