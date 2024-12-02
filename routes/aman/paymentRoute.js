@@ -3,12 +3,6 @@ import { paymentController } from '../../controllers/aman/paymentController.js';
 
 const router = express.Router();
 
-/**
- * Payment Route for handling payment-related operations.
- * This route handles creating a new payment record.
- * 
- * @module PaymentRoute
- */
 
 /**
  * @route POST /payments

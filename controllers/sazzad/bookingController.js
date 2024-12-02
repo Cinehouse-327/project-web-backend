@@ -3,6 +3,13 @@ import { Booking } from '../../models/sazzad/bookingModel.js';
 import { User } from '../../models/userModel.js';
 import { MovieList } from '../../models/amit/movieListModel.js';
 
+
+
+/**
+ * Controller for handling booking-related actions.
+ * 
+ * @module bookingController
+ */
 /**
  * Handles user booking for a movie.
  * 

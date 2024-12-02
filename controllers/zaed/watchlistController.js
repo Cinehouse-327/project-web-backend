@@ -1,5 +1,11 @@
 import { Watchlist } from "../../models/zaed/watchlistModel.js";
 
+
+/**
+ * Controller for handling watchlist-related actions.
+ * 
+ * @module watchlistController
+ */
 export const watchlistController = {
   /**
    * Adds a movie to the user's watchlist.

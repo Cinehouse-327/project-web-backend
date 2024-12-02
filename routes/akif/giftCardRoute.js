@@ -1,10 +1,7 @@
 import express from "express";
 import { giftCardController } from "../../controllers/akif/giftCardController.js";
 
-/**
- * Router for gift card-related operations.
- * @namespace giftCardRoutes
- */
+
 const router = express.Router();
 
 /**
